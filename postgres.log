@@ -1,0 +1,30 @@
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  password authentication failed for user "developer"
+********* QUERY **********
+DROP TABLE products IF EXISTS;
+**************************
+
+psql:demo2.sql:1: ERROR:  syntax error at or near "IF"
+LINE 1: DROP TABLE products IF EXISTS;
+                            ^
+********* QUERY **********
+CREATE TABLE IF NOT EXISTS products (
+	id INT,
+	name VARCHAR(50),
+	description TEXT
+);
+**************************
+
+psql:demo2.sql:7: NOTICE:  relation "products" already exists, skipping
+CREATE TABLE
+CREATE TABLE
+psql:demo2.sql:1: ERROR:  syntax error at or near "IF"
+LINE 1: DROP TABLE products IF EXISTS;
+                            ^
+psql:demo2.sql:7: NOTICE:  relation "products" already exists, skipping
+CREATE TABLE
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  password authentication failed for user "developer"
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  password authentication failed for user "developer"
+Starting script...
+[Wednesday, 10 May, 2023 10:18:23 AM PST]
+psql: error: connection to server on socket "/var/run/postgresql/.s.PGSQL.5432" failed: FATAL:  password authentication failed for user "developer"
+Done
