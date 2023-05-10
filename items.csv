@@ -1,0 +1,4 @@
+id,name,description,branch_id,category_id
+1,Shirts,Clothing,1,1
+2,Shoes,Clothing,2,1
+3,Cellphone,1, 2

@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS branches (
 );
 
 /* Copy data from branches.csv into branches table*/
-
 COPY branches(id, name)
   FROM '/home/ralampay/workspace/training/trainocate/postgres-training/branches.csv'
   WITH DELIMITER ',' CSV HEADER;
@@ -56,7 +55,8 @@ SELECT SETVAL(
   )
 );
 
-INSERT INTO branches (name) VALUES ('Branch D');
+
+INSERT INTO branches (name) VALUES ('Branch X');
 
 SELECT * FROM branches;
 
