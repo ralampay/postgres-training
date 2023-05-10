@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS branches;
 
 CREATE TABLE IF NOT EXISTS products (
 	id INT,
@@ -29,4 +30,39 @@ ALTER TABLE products
     PRIMARY KEY (id);
 
 SELECT sequence_schema, sequence_name FROM information_schema.sequences ORDER BY sequence_name;
-SELECT * FROM information_schema.tables;
+
+CREATE TABLE IF NOT EXISTS branches (
+	id SERIAL PRIMARY KEY,
+	name VARCHAR(50)
+);
+
+/* Copy data from branches.csv into branches table*/
+
+COPY branches(id, name)
+  FROM '/home/ralampay/workspace/training/trainocate/postgres-training/branches.csv'
+  WITH DELIMITER ',' CSV HEADER;
+
+SELECT * FROM branches;
+
+SELECT sequence_schema, sequence_name 
+FROM information_schema.sequences 
+ORDER BY sequence_name;
+
+/* Set the sequence of branches to maximum of current branches */
+SELECT SETVAL(
+  'branches_id_seq',
+  (
+    SELECT MAX(id) FROM branches
+  )
+);
+
+INSERT INTO branches (name) VALUES ('Branch D');
+
+SELECT * FROM branches;
+
+/* Dump content of branches to branches_2.csv */
+/*
+COPY branches
+  TO '/home/ralampay/workspace/training/trainocate/postgres-training/branches_2.csv'
+  WITH DELIMITER ',' CSV HEADER;
+*/
