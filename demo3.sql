@@ -67,3 +67,34 @@ SELECT deposit(1, 500.0);
 SELECT * FROM accounts;
 
 -- Create a function withdraw(id, amount) return BOOLEAN
+DROP FUNCTION IF EXISTS withdraw;
+CREATE OR REPLACE FUNCTION withdraw(
+  _id INT,
+  _amount NUMERIC
+)
+RETURNS BOOLEAN
+LANGUAGE plpgsql
+AS $$
+DECLARE
+  result BOOLEAN := TRUE;
+  current_balance NUMERIC;
+  new_balance NUMERIC;
+BEGIN
+  SELECT balance INTO current_balance FROM accounts WHERE accounts.id = _id;
+
+  new_balance := current_balance - _amount;
+
+  -- set result to FALSE if new_balance < 0
+  IF new_balance < 0 THEN
+    result := FALSE;
+    RAISE NOTICE 'Account % has insufficient balance % for withdrawal of amount %', _id, current_balance, _amount;
+  ELSE
+    UPDATE accounts SET balance = new_balance WHERE accounts.id = _id;
+  END IF;
+
+  RETURN result;
+END;$$;
+
+-- withdraw 1000
+SELECT withdraw(1, 1100.0);
+SELECT * FROM accounts;
